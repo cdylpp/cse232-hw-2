@@ -22,7 +22,7 @@ delete from loan
 where type = 'jumbo mortgage';
 
 delete from customer
-where name not in (
+where name in (
     select cname
     from jumbo_loans
 );
