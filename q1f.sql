@@ -1,0 +1,7 @@
+-- TODO
+-- Find the pairs of customer who took the exact same loans 
+-- (i.e. all loans taken by one are taken by the other and viceversa; or, equivalently, for every loan l, customer 1 takes l iff so does customer 2).
+-- The output schema should be (name1, name2). 
+-- The answer should contain exactly one tuple for each pair of customers who take exactly the same loans.
+-- For each pair of such customers, always choose the tuple that is lexicographically smaller. 
+-- Do not list customers with themselves.
