@@ -8,16 +8,21 @@
 
 -- missing tuples
 
-select no
-from (select no, count(*) as numBorrowers, type
-    from customer
-    left join borrower on cname = name
-    left join loan on lno = no
-    group by no) t1, (select type, avg(q1.numBorrowers) as avgBorrowers
-                    from (select no, count(*) as numBorrowers, type
-                    from customer
-                    left join borrower on cname = name
-                    left join loan on lno = no
-                    group by no) q1
-                    group by type) t2
-where t1.type = t2.type and t1.numBorrowers > t2.avgBorrowers;
+select t.no
+from (
+    select l.no, l.type, count(b.cname) as numBorrowers
+    from loan l
+    left join borrower b on b.lno = l.no
+    group by l.no, l.type
+) t
+join (
+    select q.type, AVG(q.numBorrowers) as avgBorrowers
+    from (
+        select l.no, l.type, COUNT(b.cname) as numBorrowers
+        from loan l
+        left join borrower b on b.lno = l.no
+        group by l.no, l.type
+    ) q
+    group by q.type
+) a on t.type = a.type
+where t.numBorrowers > a.avgBorrowers;
