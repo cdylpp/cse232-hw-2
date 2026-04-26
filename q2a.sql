@@ -1,4 +1,4 @@
--- TODO
+-- DONE
 -- Change the type of all “jumbo mortgage” loans to “student” and the type of all original “student” loans to “jumbo mortgage”. 
 -- You may assume that the only loan types represented in the data are "jumbo mortgage", "standard mortgage", "auto", "student", "personal", "business".
 

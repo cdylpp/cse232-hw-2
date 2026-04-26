@@ -6,7 +6,7 @@
 -- compare with 
 -- avg # of borrowers over all loans of that type
 
-
+-- missing tuples
 
 select no
 from (select no, count(*) as numBorrowers, type
