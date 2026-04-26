@@ -5,6 +5,12 @@
 -- delete in dependency order
 
 
+create temp table jumbo_loans as
+select distinct cname
+from borrower
+join loan on lno = no
+where type = 'jumbo mortgage';
+
 delete from borrower
 where borrower.lno in (
     select no
@@ -18,5 +24,5 @@ where type = 'jumbo mortgage';
 delete from customer
 where name not in (
     select cname
-    from borrower
+    from jumbo_loans
 );

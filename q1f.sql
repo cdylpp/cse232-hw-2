@@ -6,9 +6,28 @@
 -- For each pair of such customers, always choose the tuple that is lexicographically smaller. 
 -- Do not list customers with themselves.
 
-
-select b1.cname as name1, b2.cname as name2
-from borrower b1, borrower b2
-where b1.lno = b2.lno
-and b1.cname < b2.cname
-order by name1, name2;
+select c1.name as name1, c2.name as name2
+from customer c1, customer c2
+where c1.name < c2.name
+and not exists (
+    select 1
+    from borrower b1
+    where b1.cname = c1.name
+    and not exists (
+        select 1
+        from borrower b2
+        where b2.cname = c2.name
+          and b2.lno = b1.lno
+    )
+)
+and not exists (
+    select 1
+    from borrower b2
+    where b2.cname = c2.name
+    and not exists (
+        select 1
+        from borrower b1
+        where b1.cname = c1.name
+          and b1.lno = b2.lno
+    )
+);
