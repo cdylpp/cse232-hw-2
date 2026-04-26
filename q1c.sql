@@ -3,12 +3,16 @@
 -- The output schema should be (loanType)
 
 -- Test failed, partial credit.
+-- Could be more than one type with smallest count.
+-- must return all loans with minimum count.
 
+with loanCountPerType as (
+    select type, count(*) as count
+    from borrower
+    join loan on lno = no
+    group by type
+)
 select type as loanType
-from customer
-join borrower on name = cname
-join loan on lno = no
-group by type
-order by count(*) asc
-limit 3;
+from loanCountPerType t1, (select min(count) as min from loanCountPerType) minVal
+where t1.count = minVal.min;
 
